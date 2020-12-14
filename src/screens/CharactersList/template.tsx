@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Layout from '../../components/Layout'
 import List from '../../components/List'
-import CharacterItem from '../../components/List/CharacterItem'
+import CharacterItem from '../../components/ListItems/CharacterItem'
 import { ROUTES } from '../../constants'
 import { Link } from 'react-router-dom'
 import { Character } from '../../types'

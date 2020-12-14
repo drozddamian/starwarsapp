@@ -38,7 +38,7 @@ type Props = {
 const CharacterItem: React.FC<Props> = ({
   currentPage,
   name,
-  species,
+  speciesName,
   url,
 }) => {
   const idRegex = /\d+/g
@@ -53,7 +53,7 @@ const CharacterItem: React.FC<Props> = ({
       <LeftColumn>
         <NameText>{name}</NameText>
         <SpeciesNameContainer>
-          <SpeciesNameText>{species}</SpeciesNameText>
+          <SpeciesNameText>{speciesName}</SpeciesNameText>
         </SpeciesNameContainer>
       </LeftColumn>
       <LinkButton linkUrl={linkDirectionObject} />

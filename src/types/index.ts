@@ -1,7 +1,8 @@
 export type Character = {
   name: string
-  species: string
+  species: string[]
   url: string
+  speciesName?: string
 }
 
 export type Film = {

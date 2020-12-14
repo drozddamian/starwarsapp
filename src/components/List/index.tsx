@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   border: 1px solid lightgray;
 `
 
-const Error = styled.text`
+const Error = styled.p`
   position: absolute;
   top: 50%;
   width: 100%;

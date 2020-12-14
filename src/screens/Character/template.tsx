@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import List from '../../components/List'
-import FilmListItem from '../../components/List/FilmListItem'
+import FilmListItem from '../../components/ListItems/FilmListItem'
 import Layout from '../../components/Layout'
 import LinkButton, {
   LinkButtonContainer,

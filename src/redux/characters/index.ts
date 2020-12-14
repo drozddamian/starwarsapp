@@ -2,8 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk } from '../store'
 import { apiCharacters } from '../../api'
 import { Character, CharactersApiPayload } from '../../types'
+import { addSpeciesNameToCharacter } from "../../util";
 
-const { getCharacters, getSpeciesName } = apiCharacters
+const { getCharacters } = apiCharacters
 
 type CharactersState = {
   isLoading: boolean
@@ -50,18 +51,6 @@ export const {
   characterActionFailure,
   getCharactersSuccess,
 } = slice.actions
-
-const addSpeciesNameToCharacter = async (character: Character) => {
-  const { species } = character
-
-  const speciesName =
-    species.length === 0 ? 'Unknown' : await getSpeciesName(species[0])
-
-  return {
-    ...character,
-    species: `${speciesName} species`,
-  }
-}
 
 export const fetchCharacters = (
   paginationPage: string | number
