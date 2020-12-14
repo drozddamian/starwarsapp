@@ -3,7 +3,7 @@ import { AppThunk } from '../store'
 import { apiCharacters } from '../../api'
 import { Character, CharactersApiPayload } from '../../types'
 
-const { getCharacters } = apiCharacters
+const { getCharacters, getSpeciesName } = apiCharacters
 
 type CharactersState = {
   isLoading: boolean
@@ -35,9 +35,9 @@ const slice = createSlice({
       state,
       action: PayloadAction<CharactersApiPayload>
     ) {
-      const { results, count } = action.payload
+      const { characters, count } = action.payload
 
-      state.characters = results
+      state.characters = characters
       state.allCharactersCount = count
       state.isLoading = false
       state.error = null
@@ -51,13 +51,35 @@ export const {
   getCharactersSuccess,
 } = slice.actions
 
+const addSpeciesNameToCharacter = async (character: Character) => {
+  const { species } = character
+
+  const speciesName =
+    species.length === 0 ? 'Unknown' : await getSpeciesName(species[0])
+
+  return {
+    ...character,
+    species: `${speciesName} species`,
+  }
+}
+
 export const fetchCharacters = (
   paginationPage: string | number
 ): AppThunk => async (dispatch) => {
   try {
     dispatch(characterActionStart())
-    const playerData = await getCharacters(paginationPage)
-    dispatch(getCharactersSuccess(playerData))
+    const { characters, count } = await getCharacters(paginationPage)
+
+    const charactersWithSpecies = await Promise.all(
+      characters.map(addSpeciesNameToCharacter)
+    )
+
+    dispatch(
+      getCharactersSuccess({
+        count,
+        characters: charactersWithSpecies,
+      })
+    )
   } catch (error) {
     dispatch(characterActionFailure(error))
   }

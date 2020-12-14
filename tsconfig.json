@@ -1,6 +1,7 @@
 {
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "./src/assets/**/*.d.ts"
   ],
   "compilerOptions": {
     "baseUrl": "./src",

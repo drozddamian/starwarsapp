@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { Character } from '../../types'
 import LinkButton from '../LinkButton'
-import SpeciesName from '../SpeciesName'
 import { ROUTES } from '../../constants'
 
 const Wrapper = styled.div`
@@ -15,6 +14,14 @@ const Wrapper = styled.div`
   @media (min-width: 767px) {
     padding: 50px;
   }
+`
+
+const SpeciesNameContainer = styled.div`
+  padding-top: 24px;
+`
+
+const SpeciesNameText = styled.h3`
+  color: #7b8fa4;
 `
 
 const LeftColumn = styled.div`
@@ -40,13 +47,14 @@ const CharacterItem: React.FC<Props> = ({
     pathname: `${ROUTES.CHARACTER.url}${id}`,
     state: { goBackPageNumber: currentPage },
   }
-  const speciesUrl = species.join()
 
   return (
     <Wrapper>
       <LeftColumn>
         <NameText>{name}</NameText>
-        <SpeciesName speciesUrl={speciesUrl} />
+        <SpeciesNameContainer>
+          <SpeciesNameText>{species}</SpeciesNameText>
+        </SpeciesNameContainer>
       </LeftColumn>
       <LinkButton linkUrl={linkDirectionObject} />
     </Wrapper>

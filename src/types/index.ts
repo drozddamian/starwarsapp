@@ -1,6 +1,6 @@
 export type Character = {
   name: string
-  species: string[]
+  species: string
   url: string
 }
 
@@ -11,7 +11,7 @@ export type Film = {
 }
 
 export type CharactersApiPayload = {
-  results: Character[]
+  characters: Character[]
   count: number
 }
 

@@ -9,9 +9,17 @@ const getCharacters = async (
   const { data } = await axios.get(apiPaginatedUrl)
   const { results, count } = data
 
-  return { results, count }
+  return { count, characters: results }
+}
+
+const getSpeciesName = async (speciesApiUrl: string): Promise<string> => {
+  const {
+    data: { name },
+  } = await axios.get(speciesApiUrl)
+  return name
 }
 
 export default {
   getCharacters,
+  getSpeciesName,
 }
