@@ -8,23 +8,6 @@ import { ROUTES } from '../../constants'
 import { Link } from 'react-router-dom'
 import { Character } from '../../types'
 
-const ContentContainer = styled.div`
-  overflow-y: scroll;
-  height: 80vh;
-
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #e93578;
-  }
-`
-
 const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -65,8 +48,8 @@ const CharactersListTemplate: React.FC<Props> = ({
   currentPage,
   howManyPagesAvailable,
 }) => {
-  const listContent = (
-    <ContentContainer>
+  const listItems = (
+    <>
       {characters.map((character) => (
         <CharacterItem
           key={character.name}
@@ -74,7 +57,7 @@ const CharactersListTemplate: React.FC<Props> = ({
           {...character}
         />
       ))}
-    </ContentContainer>
+    </>
   )
 
   const paginationLinks = [...Array(howManyPagesAvailable)].map(
@@ -93,9 +76,11 @@ const CharactersListTemplate: React.FC<Props> = ({
 
   return (
     <Layout>
-      <List isLoading={isLoading} error={error} items={listContent} />
+      <List isLoading={isLoading} error={error} items={listItems} />
 
-      <PaginationContainer>{paginationLinks}</PaginationContainer>
+      {paginationLinks && (
+        <PaginationContainer>{paginationLinks}</PaginationContainer>
+      )}
     </Layout>
   )
 }
