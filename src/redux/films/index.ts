@@ -14,8 +14,8 @@ type FilmState = {
 }
 
 const initialState: FilmState = {
-  isLoading: false,
-  isFilmLoading: false,
+  isLoading: true,
+  isFilmLoading: true,
   error: null,
   characterName: '',
   films: [],

@@ -13,7 +13,7 @@ type CharactersState = {
 }
 
 const initialState: CharactersState = {
-  isLoading: false,
+  isLoading: true,
   error: null,
   characters: [],
   allCharactersCount: 0,
