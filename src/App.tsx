@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { ROUTES } from './constants'
 import GlobalStyles from './styles/global'
-import ListScreen from './screens/List'
+import ListScreen from './screens/CharactersList'
 import CharacterScreen from './screens/Character'
 
 function App() {

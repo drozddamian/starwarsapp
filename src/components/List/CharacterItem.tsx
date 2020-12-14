@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Person } from '../../types'
+import { Character } from '../../types'
 import LinkButton from '../LinkButton'
-import SpeciesName from './SpeciesName'
+import SpeciesName from '../SpeciesName'
 import { ROUTES } from '../../constants'
 
 const Wrapper = styled.div`
@@ -21,9 +21,9 @@ const NameText = styled.h3``
 
 type Props = {
   currentPage: string
-} & Person
+} & Character
 
-const PersonListItem: React.FC<Props> = ({
+const CharacterItem: React.FC<Props> = ({
   currentPage,
   name,
   species,
@@ -48,4 +48,4 @@ const PersonListItem: React.FC<Props> = ({
   )
 }
 
-export default PersonListItem
+export default CharacterItem

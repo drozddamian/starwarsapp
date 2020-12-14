@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-
-import Layout from '../../components/Layout'
-import ListComponent from '../../components/List'
 import { API } from '../../constants'
-import { Person } from '../../types'
+import { Character } from '../../types'
+import CharactersListTemplate from './template'
 
 const PAGINATION_CHUNK_SIZE = 10
 
@@ -13,13 +11,13 @@ type ParamTypes = {
   page?: string
 }
 
-const ListScreen: React.FC = () => {
+const CharactersListScreen: React.FC = () => {
   const { page = 1 } = useParams<ParamTypes>()
 
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<null | string>(null)
   const [allPersonCount, setAllPersonCount] = useState(0)
-  const [PersonList, setPerson] = useState<Person[]>([])
+  const [characters, setCharacters] = useState<Character[]>([])
 
   const getPeople = useCallback(async () => {
     try {
@@ -29,7 +27,7 @@ const ListScreen: React.FC = () => {
       const { results, count } = data
 
       setAllPersonCount(count)
-      setPerson(results)
+      setCharacters(results)
       setIsLoading(false)
     } catch (error) {
       setError('Error while fetching characters data')
@@ -46,17 +44,15 @@ const ListScreen: React.FC = () => {
     [allPersonCount]
   )
 
-  return (
-    <Layout>
-      <ListComponent
-        isLoading={isLoading}
-        error={error}
-        items={PersonList}
-        currentPage={page.toString()}
-        howManyPagesAvailable={howManyPagesAvailable}
-      />
-    </Layout>
-  )
+  const templateProps = {
+    isLoading,
+    error,
+    characters,
+    currentPage: page.toString(),
+    howManyPagesAvailable,
+  }
+
+  return <CharactersListTemplate {...templateProps} />
 }
 
-export default ListScreen
+export default CharactersListScreen

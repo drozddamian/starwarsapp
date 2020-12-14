@@ -1,4 +1,4 @@
-export type Person = {
+export type Character = {
   name: string
   species: string[]
   url: string
