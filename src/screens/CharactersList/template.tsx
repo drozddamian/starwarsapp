@@ -17,26 +17,27 @@ const PaginationContainer = styled.div`
   margin-top: auto;
   border: 1px solid lightgray;
   border-top: none;
+`
 
-  a {
-    color: gray;
-    font-size: 11px;
-    padding-top: 10px;
-    transition: color 0.2s ease-out;
+const PaginationLink = styled(Link)<{ $isActivePage: boolean }>`
+  color: ${({ $isActivePage }) => ($isActivePage ? 'black' : 'gray')};
+  font-size: 11px;
+  padding-top: 10px;
+  transition: color 0.2s ease-out;
 
-    :not(:last-of-type) {
-      margin-right: 12px;
-    }
+  :not(:last-of-type) {
+    margin-right: 12px;
+  }
 
-    @media (min-width: 768px) {
-      :not(:last-of-type):after {
-        content: '|';
-        margin: 0 15px;
-      }
+  @media (min-width: 768px) {
+    :not(:last-of-type):after {
+      content: '|';
+      color: gray;
+      margin: 0 15px;
     }
-    :hover {
-      color: black;
-    }
+  }
+  :hover {
+    color: black;
   }
 `
 
@@ -72,11 +73,16 @@ const CharactersListTemplate: React.FC<Props> = ({
       index++
       const linkUrl = `${ROUTES.LIST.url}${index}`
       const linkContent = `Page ${index}`
+      const isActivePage = Number(currentPage) === index
 
       return (
-        <Link key={index} to={linkUrl}>
+        <PaginationLink
+          key={index}
+          to={linkUrl}
+          $isActivePage={isActivePage}
+        >
           {linkContent}
-        </Link>
+        </PaginationLink>
       )
     }
   )

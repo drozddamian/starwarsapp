@@ -9,3 +9,13 @@ export type Film = {
   release_date: string
   director: string
 }
+
+export type CharactersApiPayload = {
+  results: Character[]
+  count: number
+}
+
+export type CharacterSpecificationPayload = {
+  name: string
+  filmUrls: string[]
+}

@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react'
-import axios from 'axios'
+import React, { useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { API } from '../../constants'
-import { Character } from '../../types'
+import { useDispatch } from 'react-redux'
+import { fetchCharacters } from '../../redux/characters'
 import CharactersListTemplate from './template'
+import { useTypedSelector } from '../../redux/rootReducer'
 
 const PAGINATION_CHUNK_SIZE = 10
 
@@ -12,36 +12,23 @@ type ParamTypes = {
 }
 
 const CharactersListScreen: React.FC = () => {
+  const dispatch = useDispatch()
   const { page = 1 } = useParams<ParamTypes>()
 
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<null | string>(null)
-  const [allPersonCount, setAllPersonCount] = useState(0)
-  const [characters, setCharacters] = useState<Character[]>([])
-
-  const getPeople = useCallback(async () => {
-    try {
-      setIsLoading(true)
-      const apiPaginatedUrl = `${API.PEOPLE}?page=${page}`
-      const { data } = await axios.get(apiPaginatedUrl)
-      const { results, count } = data
-
-      setAllPersonCount(count)
-      setCharacters(results)
-      setIsLoading(false)
-    } catch (error) {
-      setError('Error while fetching characters data')
-      setIsLoading(false)
-    }
-  }, [page])
+  const {
+    isLoading,
+    error,
+    allCharactersCount,
+    characters,
+  } = useTypedSelector((state) => state.characters)
 
   useEffect(() => {
-    getPeople()
-  }, [getPeople])
+    dispatch(fetchCharacters(page))
+  }, [page])
 
   const howManyPagesAvailable = useMemo(
-    () => Math.ceil(allPersonCount / PAGINATION_CHUNK_SIZE),
-    [allPersonCount]
+    () => Math.ceil(allCharactersCount / PAGINATION_CHUNK_SIZE),
+    [allCharactersCount]
   )
 
   const templateProps = {

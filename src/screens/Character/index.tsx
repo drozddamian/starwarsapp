@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
-import { API, ROUTES } from '../../constants'
-import { Film } from '../../types'
+import { useDispatch } from 'react-redux'
+import { fetchCharacterFilms } from '../../redux/films'
+import { ROUTES } from '../../constants'
 import CharacterScreenTemplate from './template'
+import { useTypedSelector } from '../../redux/rootReducer'
 
 type ParamTypes = {
   id: string
@@ -14,53 +15,31 @@ type Location = {
 }
 
 const CharacterScreen: React.FC = () => {
+  const dispatch = useDispatch()
   const { id } = useParams<ParamTypes>()
   const { state } = useLocation<Location>()
 
-  const [filmData, setFilmData] = useState<Film[]>([])
-  const [characterName, setCharacterName] = useState('')
-  const [isLoading, setIsLoading] = useState(true)
-  const [isFilmListLoading, setIsFilmListLoading] = useState(false)
+  const {
+    isLoading,
+    isFilmLoading,
+    error,
+    characterName,
+    films,
+  } = useTypedSelector((state) => state.films)
 
   const goBackDirection = state?.goBackPageNumber
     ? `${ROUTES.LIST.url}${state.goBackPageNumber}`
     : ROUTES.LIST.url
 
-  const getFilmsData = async (filmsUrl: string[]) => {
-    const filmsPromiseArray = filmsUrl.map((url) => axios.get(url))
-
-    axios.all(filmsPromiseArray).then(
-      axios.spread((...responses) => {
-        const films = responses.map(({ data }) => data)
-        setFilmData(films)
-      })
-    )
-  }
-
-  const getPersonData = async () => {
-    try {
-      const apiPaginatedUrl = `${API.PEOPLE}${id}`
-      const { data } = await axios.get(apiPaginatedUrl)
-      const { name, films } = data
-
-      setCharacterName(name)
-      setIsFilmListLoading(true)
-      await getFilmsData(films)
-      setIsFilmListLoading(false)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
   useEffect(() => {
-    getPersonData()
+    dispatch(fetchCharacterFilms(id))
   }, [])
 
   const templateProps = {
-    filmData,
+    films,
     characterName,
     isLoading,
-    isFilmListLoading,
+    isFilmLoading,
     goBackDirection,
   }
 

@@ -30,18 +30,18 @@ const PlaceholderImage = styled.img`
 `
 
 type Props = {
-  filmData: Film[]
+  films: Film[]
   characterName: string
   isLoading: boolean
-  isFilmListLoading: boolean
+  isFilmLoading: boolean
   goBackDirection: string
 }
 
 const CharacterScreenTemplate: React.FC<Props> = ({
-  filmData,
+  films,
   characterName,
   isLoading,
-  isFilmListLoading,
+  isFilmLoading,
   goBackDirection,
 }) => {
   const listContent = (
@@ -51,10 +51,10 @@ const CharacterScreenTemplate: React.FC<Props> = ({
         <SubheaderText>{`${characterName} movies`}</SubheaderText>
       </MovieListSubheader>
 
-      {isFilmListLoading ? (
+      {isFilmLoading ? (
         <PlaceholderImage src={SkeletonItem} alt="Loading..." />
       ) : (
-        filmData.map((film) => <FilmListItem key={film.title} {...film} />)
+        films.map((film) => <FilmListItem key={film.title} {...film} />)
       )}
     </>
   )

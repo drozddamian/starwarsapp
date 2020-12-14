@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { ROUTES } from './constants'
 import GlobalStyles from './styles/global'
 import ListScreen from './screens/CharactersList'
 import CharacterScreen from './screens/Character'
 
-function App() {
+function App(): ReactElement {
   return (
     <>
       <GlobalStyles />
