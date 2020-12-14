@@ -10,25 +10,32 @@ import { Character } from '../../types'
 
 const PaginationContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 20px 0;
+  padding: 10px 0 20px 0;
   margin-top: auto;
-  border: 1px solid gray;
+  border: 1px solid lightgray;
+  border-top: none;
 
   a {
     color: gray;
-    position: relative;
     font-size: 11px;
+    padding-top: 10px;
     transition: color 0.2s ease-out;
 
-    :hover {
-      color: black;
+    :not(:last-of-type) {
+      margin-right: 12px;
     }
 
-    :not(:last-of-type):after {
-      content: '|';
-      margin: 0 15px;
+    @media (min-width: 768px) {
+      :not(:last-of-type):after {
+        content: '|';
+        margin: 0 15px;
+      }
+    }
+    :hover {
+      color: black;
     }
   }
 `
@@ -64,11 +71,11 @@ const CharactersListTemplate: React.FC<Props> = ({
     (_, index) => {
       index++
       const linkUrl = `${ROUTES.LIST.url}${index}`
-      const linkText = `Page ${index}`
+      const linkContent = `Page ${index}`
 
       return (
         <Link key={index} to={linkUrl}>
-          {linkText}
+          {linkContent}
         </Link>
       )
     }

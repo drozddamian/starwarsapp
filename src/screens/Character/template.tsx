@@ -8,11 +8,13 @@ import LinkButton, {
   LinkButtonContainer,
 } from '../../components/LinkButton'
 import { Film } from '../../types'
+import SkeletonItem from '../../assets/SkeletonItem.png'
 
 const MovieListSubheader = styled.div`
   display: flex;
   align-items: center;
   padding: 35px 0;
+  border-bottom: 1px solid lightgray;
 
   ${LinkButtonContainer} {
     margin: 0 10px;
@@ -23,10 +25,15 @@ const SubheaderText = styled.h2`
   font-size: 28px;
 `
 
+const PlaceholderImage = styled.img`
+  padding: 30px 0 30px 50px;
+`
+
 type Props = {
   filmData: Film[]
   characterName: string
   isLoading: boolean
+  isFilmListLoading: boolean
   goBackDirection: string
 }
 
@@ -34,6 +41,7 @@ const CharacterScreenTemplate: React.FC<Props> = ({
   filmData,
   characterName,
   isLoading,
+  isFilmListLoading,
   goBackDirection,
 }) => {
   const listContent = (
@@ -43,9 +51,11 @@ const CharacterScreenTemplate: React.FC<Props> = ({
         <SubheaderText>{`${characterName} movies`}</SubheaderText>
       </MovieListSubheader>
 
-      {filmData.map((film) => (
-        <FilmListItem key={film.title} {...film} />
-      ))}
+      {isFilmListLoading ? (
+        <PlaceholderImage src={SkeletonItem} alt="Loading..." />
+      ) : (
+        filmData.map((film) => <FilmListItem key={film.title} {...film} />)
+      )}
     </>
   )
 

@@ -14,9 +14,15 @@ const Error = styled.text`
 `
 
 const Header = styled.div`
+  padding: 10px 0;
+  text-align: center;
   background-color: gray;
   border: 1px solid black;
-  padding: 10px 0 10px 50px;
+
+  @media (min-width: 767px) {
+    padding: 10px 0 10px 50px;
+    text-align: left;
+  }
 `
 const Title = styled.h1`
   font-size: 24px;

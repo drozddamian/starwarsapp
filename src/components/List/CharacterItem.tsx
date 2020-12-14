@@ -6,10 +6,15 @@ import SpeciesName from '../SpeciesName'
 import { ROUTES } from '../../constants'
 
 const Wrapper = styled.div`
-  padding: 50px;
+  padding: 50px 10px 50px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid lightgray;
+
+  @media (min-width: 767px) {
+    padding: 50px;
+  }
 `
 
 const LeftColumn = styled.div`

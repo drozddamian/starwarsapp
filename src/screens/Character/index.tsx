@@ -20,6 +20,7 @@ const CharacterScreen: React.FC = () => {
   const [filmData, setFilmData] = useState<Film[]>([])
   const [characterName, setCharacterName] = useState('')
   const [isLoading, setIsLoading] = useState(true)
+  const [isFilmListLoading, setIsFilmListLoading] = useState(false)
 
   const goBackDirection = state?.goBackPageNumber
     ? `${ROUTES.LIST.url}${state.goBackPageNumber}`
@@ -28,17 +29,12 @@ const CharacterScreen: React.FC = () => {
   const getFilmsData = async (filmsUrl: string[]) => {
     const filmsPromiseArray = filmsUrl.map((url) => axios.get(url))
 
-    axios
-      .all(filmsPromiseArray)
-      .then(
-        axios.spread((...responses) => {
-          const films = responses.map(({ data }) => data)
-          setFilmData(films)
-        })
-      )
-      .catch((errors) => {
-        console.error(errors)
+    axios.all(filmsPromiseArray).then(
+      axios.spread((...responses) => {
+        const films = responses.map(({ data }) => data)
+        setFilmData(films)
       })
+    )
   }
 
   const getPersonData = async () => {
@@ -48,7 +44,9 @@ const CharacterScreen: React.FC = () => {
       const { name, films } = data
 
       setCharacterName(name)
+      setIsFilmListLoading(true)
       await getFilmsData(films)
+      setIsFilmListLoading(false)
     } finally {
       setIsLoading(false)
     }
@@ -62,6 +60,7 @@ const CharacterScreen: React.FC = () => {
     filmData,
     characterName,
     isLoading,
+    isFilmListLoading,
     goBackDirection,
   }
 
