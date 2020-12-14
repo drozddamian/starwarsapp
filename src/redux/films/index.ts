@@ -80,7 +80,7 @@ export const fetchCharacterFilms = (
     const filmsData = await getFilms(filmUrls)
     dispatch(getCharacterFilmsSuccess(filmsData))
   } catch (error) {
-    dispatch(filmsActionFailure(error))
+    dispatch(filmsActionFailure(error.message))
   }
 }
 

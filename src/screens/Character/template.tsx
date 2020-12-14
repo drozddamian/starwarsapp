@@ -34,6 +34,7 @@ type Props = {
   characterName: string
   isLoading: boolean
   isFilmLoading: boolean
+  error: string | null
   goBackDirection: string
 }
 
@@ -42,6 +43,7 @@ const CharacterScreenTemplate: React.FC<Props> = ({
   characterName,
   isLoading,
   isFilmLoading,
+  error,
   goBackDirection,
 }) => {
   const listContent = (
@@ -61,7 +63,7 @@ const CharacterScreenTemplate: React.FC<Props> = ({
 
   return (
     <Layout>
-      <List isLoading={isLoading} error={null} items={listContent} />
+      <List isLoading={isLoading} error={error} items={listContent} />
     </Layout>
   )
 }

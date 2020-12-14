@@ -40,6 +40,7 @@ const CharacterScreen: React.FC = () => {
     characterName,
     isLoading,
     isFilmLoading,
+    error,
     goBackDirection,
   }
 

@@ -81,7 +81,7 @@ export const fetchCharacters = (
       })
     )
   } catch (error) {
-    dispatch(characterActionFailure(error))
+    dispatch(characterActionFailure(error.message))
   }
 }
 

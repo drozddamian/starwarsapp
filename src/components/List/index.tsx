@@ -57,12 +57,7 @@ type Props = {
 const List: React.FC<Props> = ({ isLoading, error, items }) => {
   const renderContent = () => {
     if (error) {
-      return (
-        <Error>
-          Something's wrong,
-          <br /> please try to refresh the page.
-        </Error>
-      )
+      return <Error>{error}</Error>
     }
     if (isLoading) {
       return <Loader />
