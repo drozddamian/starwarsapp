@@ -68,8 +68,9 @@ const CharactersListTemplate: React.FC<Props> = ({
     </>
   )
 
-  const paginationLinks = [...Array(howManyPagesAvailable)].map(
-    (_, index) => {
+  const paginationLinks =
+    howManyPagesAvailable > 1 &&
+    [...Array(howManyPagesAvailable)].map((_, index) => {
       index++
       const linkUrl = `${ROUTES.LIST.url}${index}`
       const linkContent = `Page ${index}`
@@ -84,15 +85,16 @@ const CharactersListTemplate: React.FC<Props> = ({
           {linkContent}
         </PaginationLink>
       )
-    }
-  )
+    })
 
   return (
     <Layout>
       <List isLoading={isLoading} error={error} items={listItems} />
 
       {paginationLinks && (
-        <PaginationContainer>{paginationLinks}</PaginationContainer>
+        <PaginationContainer data-testid="pagination-container">
+          {paginationLinks}
+        </PaginationContainer>
       )}
     </Layout>
   )

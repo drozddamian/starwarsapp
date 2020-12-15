@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk } from '../store'
 import { apiCharacters } from '../../api'
 import { Character, CharactersApiPayload } from '../../types'
-import { addSpeciesNameToCharacter } from "../../util";
+import { addSpeciesNameToCharacter } from '../../util'
 
 const { getCharacters } = apiCharacters
 

@@ -3,17 +3,19 @@ import { addSpeciesNameToCharacter } from './index'
 const fakeEmptySpeciesCharacter = {
   name: 'fake',
   species: [],
-  url: ''
+  url: '',
 }
 
 const fakeCharacter = {
   ...fakeEmptySpeciesCharacter,
-  species: ['https://swapi.dev/api/species/2/']
+  species: ['https://swapi.dev/api/species/2/'],
 }
 
 describe('Function that sets species name', () => {
   it('Should have unknown species name when species is []', async () => {
-    const updatedCharacter = await addSpeciesNameToCharacter(fakeEmptySpeciesCharacter)
+    const updatedCharacter = await addSpeciesNameToCharacter(
+      fakeEmptySpeciesCharacter
+    )
     expect(updatedCharacter.speciesName).toBe('Unknown species')
   })
 
@@ -23,4 +25,3 @@ describe('Function that sets species name', () => {
     expect(updatedCharacter.speciesName).not.toBe('Unknown species')
   })
 })
-
